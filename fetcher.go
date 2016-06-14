@@ -26,7 +26,7 @@ func main() {
 	}
 	APIConnection.SetAPIKey(os.Getenv("OSU_TOKEN"))
 
-	db, err = sqlx.Connect("postgres", "user="+os.Getenv("DB_USER")+" dbname="+os.Getenv("DB_DATABASE")+" sslmode=disable")
+	db, err = sqlx.Connect("postgres", "host="+os.Getenv("DB_HOST")+" user="+os.Getenv("DB_USER")+" dbname="+os.Getenv("DB_DATABASE")+" sslmode=disable")
 	if err != nil {
 		log.Fatalln(err)
 	}
