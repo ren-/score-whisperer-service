@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	_ "github.com/lib/pq"
 
@@ -42,6 +43,7 @@ func main() {
 			for _, element := range fetchedPlayers {
 
 				go storeRecentPlays(element, sem)
+				time.Sleep(200 * time.Millisecond)
 			}
 		}
 	}()
