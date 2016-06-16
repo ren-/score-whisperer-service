@@ -16,13 +16,18 @@ import (
 	API "github.com/ren-/osu/api"
 )
 
+// APIConnection stores the osu! API key and provides methods to consume API endpoints.
 var APIConnection API.Config
 var db *sqlx.DB
 
 func main() {
-
-	APIConnection.SetAPIKey(os.Getenv("OSU_TOKEN"))
 	var err error
+	err = APIConnection.SetAPIKey(os.Getenv("OSU_TOKEN"))
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	db, err = sqlx.Connect("postgres", "host="+os.Getenv("DB_HOST")+" user="+os.Getenv("DB_USER")+" dbname="+os.Getenv("DB_DATABASE")+" sslmode=disable")
 	if err != nil {
 		log.Fatalln(err)

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/url"
 	"strconv"
@@ -14,7 +15,7 @@ import (
 func getTopPlayersForCountry(top int, country string, players chan []string) []string {
 	for {
 		var playersTemp []string
-		pagesToScrape := int(top / 50)
+		pagesToScrape := top / 50
 
 		for page := 1; page <= pagesToScrape; page++ {
 
@@ -56,7 +57,10 @@ func storeRecentPlays(username string, sem chan bool) {
 			log.Fatal(err)
 		}
 
-		stmt.Close()
+		err = stmt.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
 		<-sem
 		//_, err = db.NamedQuery(`INSERT INTO plays(beatmap_id, score, max_combo, count50, count100, count300, count_miss, count_katu, count_geki, perfect, enabled_mods, user_id, date, rank, username) VALUES(:beatmap_id, :score, :max_combo, :count50, :count100, :count300, :count_miss, :count_katu, :count_geki, :perfect, :enabled_mods, :user_id, :date, :rank, :username)`, &element)
 
