@@ -9,7 +9,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 
 	"github.com/jmoiron/sqlx"
@@ -20,12 +19,9 @@ var APIConnection API.Config
 var db *sqlx.DB
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-	APIConnection.SetAPIKey(os.Getenv("OSU_TOKEN"))
 
+	APIConnection.SetAPIKey(os.Getenv("OSU_TOKEN"))
+	var err error
 	db, err = sqlx.Connect("postgres", "host="+os.Getenv("DB_HOST")+" user="+os.Getenv("DB_USER")+" dbname="+os.Getenv("DB_DATABASE")+" sslmode=disable")
 	if err != nil {
 		log.Fatalln(err)
