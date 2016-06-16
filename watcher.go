@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/url"
 	"strconv"
 	"time"
 
@@ -34,7 +35,7 @@ func getTopPlayersForCountry(top int, country string, players chan []string) []s
 }
 
 func storeRecentPlays(username string, sem chan bool) {
-	songs, err := APIConnection.GetRecentPlays(username, api.OSU, 100)
+	songs, err := APIConnection.GetRecentPlays(url.QueryEscape(username), api.OSU, 100)
 
 	if err != nil {
 		//fmt.Println(err)
