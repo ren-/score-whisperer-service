@@ -1,1 +1,0 @@
-rsync -r --delete-after --include='*score-whisperer*' --exclude='*' --quiet $TRAVIS_BUILD_DIR/ osu@paged.me:/home/osu/bin/osu-score-whisperer-service/
